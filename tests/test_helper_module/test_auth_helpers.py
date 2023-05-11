@@ -1,9 +1,13 @@
 import unittest
-from helper_modules.auth_helpers import hash_password, is_password_strong, is_username_valid, JWT_SECRET, base64url_encode, base64url_decode, jwt_decode, jwt_encode, generate_jwt_token
+from helper_modules.auth_helpers import hash_password, is_password_strong, is_username_valid, PASSWORD_SECRET, base64url_encode, base64url_decode, jwt_decode, jwt_encode, generate_jwt_token
 import hashlib
 import base64
 import hmac
 from datetime import datetime, timedelta, timezone
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
 # Set expiration date JWT_token
 DAYS_EXPIRE = 1
@@ -74,7 +78,7 @@ class TestAuthHelperFunctions(unittest.TestCase):
         """
 
         password = "Str0ng_P@ssw0rd!"
-        expected_hash = hmac.new(JWT_SECRET.encode('utf-8'), password.encode('utf-8'), hashlib.sha256).hexdigest()
+        expected_hash = hmac.new(PASSWORD_SECRET.encode('utf-8'), password.encode('utf-8'), hashlib.sha256).hexdigest()
         hashed_password = hash_password(password)
 
         self.assertEqual(hashed_password, expected_hash, "The hashed password should match the expected hash.")
@@ -87,7 +91,7 @@ class TestAuthHelperFunctions(unittest.TestCase):
 
         username = 'testuser'
         role = 'regular'
-        secret_key = JWT_SECRET
+        secret_key = PASSWORD_SECRET
 
         # Generate a JWT token using the generate_jwt_token function
         token = generate_jwt_token(username, role, secret_key)

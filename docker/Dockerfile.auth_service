@@ -1,0 +1,31 @@
+### Use offical Python image
+# Python 3.8-slim is a lightweight image and has a relatively small footprint and few dependencies
+# This helps to reduce container size compared to using a more generic or larger base image
+# Furterhmore, when using a smaller base image, the container can be built and deployed more quickly
+FROM python:3.8-slim
+
+# Set the working directory to /app
+WORKDIR /app
+
+### Copy the requirements.txt file into the container
+COPY requirements.txt .
+
+# Install the Python dependencies
+# Consolidating all Python dependencies installation into single RUN command
+# This minimizes number of layers created in container and reduces build time and final image size
+# "--no-cache-dir" ensures that the cache is not stored in the container, which further reduces the image size
+RUN pip install --no-cache-dir -r requirements.txt 
+
+### Copy the necessary subdirectories and files to the /app directory in the container
+# Copy only required files and directories into container
+# This helps minimize the amount of data transferred and final container size
+COPY main.py /app
+COPY main_modules /app/main_modules
+COPY helper_modules /app/helper_modules
+
+### Expose the ports for service to ensure its accessible outside local machine
+EXPOSE 3000
+
+### Set the environment variable for the Flask app
+ENV FLASK_APP=main
+

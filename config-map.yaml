@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: url-data
+data:
+  url-data.json: |
+    [
+      {
+        "created_at": "2023-05-08 13:51:05",
+        "generated_uri": "yUe3vzRu",
+        "original_url": "https://www.example.com",
+        "url": "http://localhost:3000/yUe3vzRu"
+      },
+      {
+        "created_at": "2023-05-08 13:55:30",
+        "generated_uri": "yTe4gyRu",
+        "original_url": "https://www.facebook.com",
+        "url": "http://localhost:3000/yTe4gyRu"
+      }
+    ]

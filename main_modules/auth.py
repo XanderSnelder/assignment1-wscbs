@@ -217,6 +217,7 @@ class AuthService:
 
         """
         Runs the Flask application.
+        The host parameter is set to '0.0.0.0' to make the application accessible to any address.
 
         Args:
             *args: Variable length argument list.

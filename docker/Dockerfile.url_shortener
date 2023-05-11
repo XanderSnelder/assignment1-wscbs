@@ -23,10 +23,8 @@ COPY main.py /app
 COPY main_modules /app/main_modules
 COPY helper_modules /app/helper_modules
 
-### Expose the ports for both services
-# Ensures services are accessible from outside the machine
-EXPOSE 3000 3001
+### Expose the ports for service to ensure its accessible outside local machine
+EXPOSE 3001
 
 ### Set the environment variable for the Flask app
 ENV FLASK_APP=main
-
