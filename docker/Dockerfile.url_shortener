@@ -2,7 +2,7 @@
 # Python 3.8-slim is a lightweight image and has a relatively small footprint and few dependencies
 # This helps to reduce container size compared to using a more generic or larger base image
 # Furterhmore, when using a smaller base image, the container can be built and deployed more quickly
-FROM python:3.8-slim
+FROM python:3.8-slim-buster
 
 # Set the working directory to /app
 WORKDIR /app

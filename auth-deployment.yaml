@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
       - name: auth-service
-        image: xandersnelder/docker-hub-auth:latest
+        image: xandersnelder/auth-service:latest
+        command: ["python", "main.py", "auth_service"]
         ports:
         - containerPort: 3001
         env:
@@ -25,3 +26,5 @@ spec:
             secretKeyRef:
               name: jwt-secret
               key: secret
+      imagePullSecrets:
+      - name: my-registry-secret

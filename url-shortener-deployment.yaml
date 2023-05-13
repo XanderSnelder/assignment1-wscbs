@@ -13,22 +13,23 @@ spec:
         app: url-shortener
     spec:
       containers:
-      - name: url-shortener
-        image: xandersnelder/url-shortener-image:latest
-        ports:
-        - containerPort: 3000
-        env:
-        - name: BASE_URL
-          value: "http://url-shortener:3000"
-        - name: JWT_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: jwt-secret
-              key: secret
-        volumeMounts:
-        - name: url-data
-          mountPath: /app/url_data
+        - name: url-shortener
+          image: xandersnelder/url-shortener:latest
+          command: ["python", "main.py", "url_shortener"]
+          ports:
+            - containerPort: 3000
+          env:
+            - name: BASE_URL
+              value: "http://url-shortener:3000"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: secret
+          volumeMounts:
+            - name: data-volume
+              mountPath: /app/url_data
       volumes:
-      - name: url-data
-        configMap:
-          name: url-data
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: url-data-pvc
